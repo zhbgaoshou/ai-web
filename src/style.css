@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+    scrollbar-gutter: initial !important;
+}
+
+.textarea:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+    outline-offset: none
+}
+
+:root {
+    --w: 980px;
+}
+
+#app,
+html,
+body {
+    height: 100%;
+}
+
+#app {
+    max-width: var(--w);
+    margin: auto;
+    border-left: 1px solid oklch(var(--b3));
+    border-right: 1px solid oklch(var(--b3));
+    transition: all .3s;
+}
