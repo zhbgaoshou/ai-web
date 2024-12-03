@@ -96,7 +96,7 @@
         <auth :tablist="tablist" @login-success="loginSuccess" @toggle-tab="toggleTab" />
     </modal>
 
-    <div class="toast toast-top z-[9999]" v-if="toast">
+    <div class="toast toast-top toast-center z-[9999]" v-if="toast">
         <div class=" alert alert-success">
             <span class=" flex">
                 <successIcon width="18" class="mr-2" />

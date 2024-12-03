@@ -24,11 +24,13 @@ const chatStore = useChatStore();
 const userStore = useUserStore();
 const messageText = ref('');
 
+const user_id = userStore.userId as number
 const send = async (text: string) => {
     const userMessageData: IMessageRequest = {
         content: text,
         role: 'user',
         model: 'gpt-3.5-turbo',
+        user_id,
     };
 
     chatStore.addMessage(userMessageData);
@@ -60,6 +62,7 @@ const send = async (text: string) => {
     });
 
 };
+
 
 </script>
 

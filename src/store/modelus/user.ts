@@ -38,6 +38,7 @@ export const useUserStore = defineStore('user', {
 
     getters: {
         isLogin: state => state.token !== '',
-        userName: state => state.userInfo.username || ''
+        userName: state => state.userInfo.username || '',
+        userId: state => state.userInfo.id || ''
     }
 })

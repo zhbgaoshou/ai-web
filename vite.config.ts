@@ -28,15 +28,15 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
-        target: 'http://112.74.75.211:8000/',
-        changeOrigin: true,
-        // rewrite: path => path.replace(/^\/api/, '')
-      },
       '/steam.api': {
         target: 'http://localhost:8000/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/steam.api/, '')
+      },
+      '/api': {
+        target: 'http://112.74.75.211:8000/',
+        changeOrigin: true,
+        // rewrite: path => path.replace(/^\/api/, '')
       }
     }
   }

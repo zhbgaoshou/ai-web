@@ -12,4 +12,6 @@ export interface IMessageRequest {
     role: 'user' | 'assistant'
     temperature?: number
     max_tokens?: number
+    user_id?: number
+    session_id?: number
 }

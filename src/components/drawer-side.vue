@@ -17,12 +17,12 @@
 
         <h2 class="menu-title">记录</h2>
 
-        <div class="dropdown dropdown-end my-[2px] " v-for="i in 5">
+        <div class="dropdown dropdown-end my-[2px] " v-for="i in 2">
 
-            <li class="">
+            <li class="group">
                 <a :class="{ active: i === 1 }"> <span></span>新会话
                     <button :tabindex="0">
-                        <moerDropIcon />
+                        <moerDropIcon class="invisible group-hover:visible" />
                     </button>
                 </a>
             </li>
@@ -33,13 +33,8 @@
                 <li><a class="!text-error">删除
                         <deleteIcon width="18" />
                     </a></li>
-
             </ul>
-
         </div>
-
-
-
     </ul>
 </template>
 
