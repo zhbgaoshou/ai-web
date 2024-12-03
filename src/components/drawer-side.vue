@@ -20,12 +20,12 @@
     <h2 class="menu-title">记录</h2>
 
     <div class="dropdown dropdown-end my-[2px]" v-for="i in 5">
-      <li class="parent">
+      <li class="group">
         <a :class="{ active: i === 1 }" class="parent">
           <span></span>新会话
 
           <button :tabindex="0" class="more-drop">
-            <moreDropIcon />
+            <moreDropIcon class="invisible group-hover:visible" />
           </button>
         </a>
       </li>
