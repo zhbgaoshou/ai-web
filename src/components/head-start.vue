@@ -7,7 +7,7 @@
             <div tabindex="0" role="button" class="btn btn-sm btn-ghost">{{ chatStore.activemodel?.name }}
                 <downIcon />
             </div>
-            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-72 p-2 shadow">
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-80 p-2 shadow">
                 <li @click="toggleModelApi(item)" v-for="item in chatStore.models"><a><span></span>
                         <div>{{ item.name }}<p class="text-xs text-base-content opacity-60">{{ item.desc }}</p>
                         </div>

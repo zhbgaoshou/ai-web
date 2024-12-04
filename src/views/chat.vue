@@ -36,6 +36,7 @@ const send = async (text: string) => {
     chatStore.addMessage(userMessageData);
     userMessageData.history = chatStore.historys;
     await nextTick();
+    const controller = new AbortController();
 
     fetchEventSource('/steam.api/openai', {
         method: 'POST',
@@ -43,11 +44,17 @@ const send = async (text: string) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${userStore.token}`
         },
+        signal: controller.signal,
+        openWhenHidden: true,
         body: JSON.stringify(userMessageData),
         onmessage(ev) {
-            if (ev.data === 'None') return;
-            messageText.value += ev.data;
-
+            const data = JSON.parse(ev.data)
+            console.log(data);
+            if (data.type === 'session') {
+                console.log(JSON.parse(data.data));
+            } else {
+                messageText.value += data.content;
+            }
         },
         onclose() {
             chatStore.addMessage({
@@ -57,10 +64,9 @@ const send = async (text: string) => {
             messageText.value = '';
         },
         onerror(err) {
-            console.error('Error received:', err);
+            throw err;
         },
     });
-
 };
 
 
