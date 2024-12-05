@@ -1,6 +1,12 @@
 <template>
-  <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
-  <ul class="menu min-h-full w-60 p-4 shadow-sm bg-base-100 border-r-[1px] border-base-300">
+  <label
+    for="my-drawer-3"
+    aria-label="close sidebar"
+    class="drawer-overlay"
+  ></label>
+  <ul
+    class="menu min-h-full w-60 p-4 shadow-sm bg-base-100 border-r-[1px] border-base-300"
+  >
     <!-- Sidebar content here -->
     <li v-for="item in menulist">
       <a>
@@ -12,31 +18,36 @@
     <h2 class="menu-title">功能</h2>
 
     <li>
-      <a>
-        <gptIcon width="18" />CHATGPT
-      </a>
+      <a> <gptIcon width="18" />CHATGPT </a>
     </li>
 
     <h2 class="menu-title">记录</h2>
 
-    <div class="dropdown dropdown-end my-[2px]" v-for="i in 5">
+    <div
+      class="dropdown dropdown-end my-[2px]"
+      v-for="item in chatStore.sessions"
+    >
       <li class="group">
-        <a :class="{ active: i === 1 }" class="parent">
-          <span></span>新会话
-
+        <a :class="{ active: item.active }" class="parent">
+          <span></span>{{ item.name }}
           <button :tabindex="0" class="more-drop">
             <moreDropIcon class="invisible group-hover:visible" />
           </button>
         </a>
       </li>
-      <ul :tabindex="0" class="dropdown-content w-max timeline-box bg-base-100 z-[1] p-2">
+      <ul
+        :tabindex="0"
+        class="dropdown-content w-max timeline-box bg-base-100 z-[1] p-2"
+      >
         <li>
-          <a>编辑
+          <a
+            >编辑
             <editIcon width="18" />
           </a>
         </li>
         <li>
-          <a class="!text-error">删除
+          <a class="!text-error"
+            >删除
             <deleteIcon width="18" />
           </a>
         </li>
@@ -46,13 +57,34 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, markRaw } from "vue";
+import { reactive, markRaw, watch } from "vue";
 import envelopeIcon from "@/assets/icons/envelope.svg?component";
 import penIcon from "@/assets/icons/pen.svg?component";
 import gptIcon from "@/assets/icons/gpt.svg?component";
 import moreDropIcon from "@/assets/icons/more-drop.svg?component";
 import deleteIcon from "@/assets/icons/delete.svg?component";
 import editIcon from "@/assets/icons/edit.svg?component";
+import { useChatStore, useUserStore } from "@/store";
+
+const chatStore = useChatStore();
+const userStore = useUserStore();
+
+const getSession = async () => {
+  const user_id = userStore.userId as number;
+  await chatStore.getSession(user_id);
+};
+
+watch(
+  () => userStore.userId,
+  async (value) => {
+    if (value) {
+      await getSession();
+    }
+  },
+  {
+    immediate: true,
+  }
+);
 
 const menulist = reactive([
   { name: "联系我", icon: markRaw(envelopeIcon) },
