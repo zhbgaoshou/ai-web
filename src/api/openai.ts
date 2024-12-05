@@ -19,3 +19,11 @@ export const getSessionApi = (user_id: number) => {
     method: "get",
   });
 };
+
+// 删除会话
+export const deleteSessionApi = (session_id: number) => {
+  return $http({
+    url: `openai/session/${session_id}`,
+    method: "delete",
+  });
+};

@@ -34,7 +34,7 @@ const send = async (text: string) => {
     role: "user",
     model: chatStore.activeModel.model,
     user_id: userStore.userId as number,
-    session_id: chatStore.activeSession.id,
+    session_id: chatStore.activeSession.id || 0,
   };
 
   chatStore.addMessage(userMessageData);
@@ -55,7 +55,7 @@ const send = async (text: string) => {
       const data = JSON.parse(ev.data);
       if (data.type === "session") {
         const sessionData = JSON.parse(data.data);
-        chatStore.sessions.push(sessionData);
+        chatStore.sessions.unshift(sessionData);
       } else {
         messageText.value += data.content;
       }

@@ -41,7 +41,7 @@ export const useChatStore = defineStore("chat", {
       return state.models.find((model) => model.active);
     },
     activeSession: (state) => {
-      return state.sessions.find((session) => session.active);
+      return state.sessions.find((session) => session.active) || {};
     },
   },
 });
