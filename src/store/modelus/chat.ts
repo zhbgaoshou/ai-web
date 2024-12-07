@@ -16,6 +16,10 @@ export const useChatStore = defineStore("chat", {
       page: 1,
       page_size: 10,
     },
+    messagePager: {
+      page: 1,
+      page_size: 10,
+    },
   }),
   actions: {
     addMessage(message: IMessageRequest) {
@@ -35,7 +39,7 @@ export const useChatStore = defineStore("chat", {
       this.sessions = res;
     },
     async getSessionMessage(session_id: number) {
-      const res = await getSessionMessageApi(session_id);
+      const res = await getSessionMessageApi(session_id, this.messagePager);
       this.messages = res;
     },
   },

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch } from "vue";
+import { watch, ref } from "vue";
 import moreDropIcon from "@/assets/icons/more-drop.svg?component";
 import deleteIcon from "@/assets/icons/delete.svg?component";
 import editIcon from "@/assets/icons/edit.svg?component";
@@ -20,10 +20,12 @@ const getSession = async () => {
   await chatStore.getSession(user_id);
 };
 
-const deleteSession = async (id: number) => {
+const deleteSession = async (id: number, dropdownRef: any) => {
   await deleteSessionApi(id);
-
   getSession();
+
+  // Close the dropdown
+  dropdownRef.value?.classList.remove("dropdown-open");
 };
 
 const addSession = async () => {
@@ -63,6 +65,7 @@ defineExpose({
   <div
     class="dropdown dropdown-end my-[2px]"
     v-for="item in chatStore.sessions"
+    :key="item.id"
   >
     <li class="group" @click="toggleSession(item.id)">
       <a :class="{ active: item.active }" class="parent">
@@ -73,6 +76,7 @@ defineExpose({
       </a>
     </li>
     <ul
+      ref="dropdownRef"
       :tabindex="0"
       class="dropdown-content w-max timeline-box bg-base-100 z-[1] p-2"
     >
@@ -82,7 +86,7 @@ defineExpose({
           <editIcon width="18" />
         </a>
       </li>
-      <li @click="deleteSession(item.id)">
+      <li @click="deleteSession(item.id, $refs.dropdownRef)">
         <a class="!text-error"
           >删除
           <deleteIcon width="18" />

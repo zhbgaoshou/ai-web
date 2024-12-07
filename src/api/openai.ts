@@ -48,10 +48,13 @@ export const toggleSessionApi = (session_id: number) => {
     method: "get",
   });
 };
-export const getSessionMessageApi = (session_id: number) => {
+export const getSessionMessageApi = (
+  session_id: number,
+  pageParam: { page: number; page_size: number }
+) => {
   return $http({
     url: `openai/message`,
     method: "get",
-    params: { session_id },
+    params: { session_id, ...pageParam },
   });
 };

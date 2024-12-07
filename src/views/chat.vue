@@ -32,7 +32,14 @@ const getMessage = async () => {
   await chatStore.getSessionMessage(chatStore.activeSession.id);
 };
 
-watch(() => chatStore.activeSession.id, getMessage);
+watch(
+  () => chatStore.activeSession.id,
+  (newId) => {
+    if (newId) {
+      getMessage();
+    }
+  }
+);
 const send = async (text: string) => {
   const userMessageData: IMessageRequest = {
     content: text,
