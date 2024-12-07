@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { watch, ref } from "vue";
+import { watch } from "vue";
 import moreDropIcon from "@/assets/icons/more-drop.svg?component";
 import deleteIcon from "@/assets/icons/delete.svg?component";
 import editIcon from "@/assets/icons/edit.svg?component";
 
 import { useChatStore, useUserStore } from "@/store";
 
-import { deleteSessionApi } from "@/api/openai";
+import {
+  deleteSessionApi,
+  addSessionApi,
+  toggleSessionApi,
+} from "@/api/openai";
 
 const chatStore = useChatStore();
 const userStore = useUserStore();
@@ -22,6 +26,22 @@ const deleteSession = async (id: number) => {
   getSession();
 };
 
+const addSession = async () => {
+  const data = {
+    name: "新会话",
+    user_id: userStore.userId,
+  };
+  await addSessionApi(data);
+
+  getSession();
+};
+
+const toggleSession = async (id: number) => {
+  if (id === chatStore.activeSession.id) return;
+  await toggleSessionApi(id);
+  getSession();
+};
+
 watch(
   () => userStore.userId,
   async (value) => {
@@ -33,6 +53,10 @@ watch(
     immediate: true,
   }
 );
+
+defineExpose({
+  addSession,
+});
 </script>
 
 <template>
@@ -40,12 +64,11 @@ watch(
     class="dropdown dropdown-end my-[2px]"
     v-for="item in chatStore.sessions"
   >
-    <li class="group">
+    <li class="group" @click="toggleSession(item.id)">
       <a :class="{ active: item.active }" class="parent">
         <span></span>{{ item.name }}
         <button :tabindex="0" class="more-drop">
           <moreDropIcon class="invisible group-hover:visible" />
-          <!-- <moreDropIcon /> -->
         </button>
       </a>
     </li>

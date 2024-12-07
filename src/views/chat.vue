@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from "vue";
+import { ref, nextTick, watch } from "vue";
 import Input from "@/components/input.vue";
 import { useChatStore, useUserStore } from "@/store";
 import type { IMessageRequest } from "@/types/chat";
@@ -28,6 +28,11 @@ const chatStore = useChatStore();
 const userStore = useUserStore();
 const messageText = ref("");
 
+const getMessage = async () => {
+  await chatStore.getSessionMessage(chatStore.activeSession.id);
+};
+
+watch(() => chatStore.activeSession.id, getMessage);
 const send = async (text: string) => {
   const userMessageData: IMessageRequest = {
     content: text,

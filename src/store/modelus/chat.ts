@@ -1,5 +1,10 @@
 import { defineStore } from "pinia";
-import { getModelApi, toggleModelApi, getSessionApi } from "@/api/openai";
+import {
+  getModelApi,
+  toggleModelApi,
+  getSessionApi,
+  getSessionMessageApi,
+} from "@/api/openai";
 import type { IMessageRequest } from "@/types/chat";
 
 export const useChatStore = defineStore("chat", {
@@ -28,6 +33,10 @@ export const useChatStore = defineStore("chat", {
     async getSession(user_id: number) {
       const res = await getSessionApi(user_id, this.pageParam);
       this.sessions = res;
+    },
+    async getSessionMessage(session_id: number) {
+      const res = await getSessionMessageApi(session_id);
+      this.messages = res;
     },
   },
   getters: {

@@ -21,17 +21,27 @@
       <a> <gptIcon width="18" />CHATGPT </a>
     </li>
 
-    <h2 class="menu-title">记录</h2>
+    <h2 class="menu-title flex items-center gap-2">
+      记录
+      <div class="tooltip tooltip-right" data-tip="新建会话">
+        <addSessionIcon
+          width="16"
+          class="cursor-pointer"
+          @click="sessionEl?.addSession()"
+        />
+      </div>
+    </h2>
 
-    <session />
+    <session ref="sessionEl" />
   </ul>
 </template>
 
 <script setup lang="ts">
-import { reactive, markRaw } from "vue";
+import { reactive, markRaw, useTemplateRef } from "vue";
 import envelopeIcon from "@/assets/icons/envelope.svg?component";
 import penIcon from "@/assets/icons/pen.svg?component";
 import gptIcon from "@/assets/icons/gpt.svg?component";
+import addSessionIcon from "@/assets/icons/add-session.svg?component";
 
 import session from "./session.vue";
 
@@ -39,6 +49,8 @@ const menulist = reactive([
   { name: "联系我", icon: markRaw(envelopeIcon) },
   { name: "BUG反馈", icon: markRaw(penIcon) },
 ]);
+
+const sessionEl = useTemplateRef("sessionEl");
 </script>
 
 <style scoped></style>
