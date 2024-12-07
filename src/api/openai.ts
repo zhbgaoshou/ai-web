@@ -13,10 +13,15 @@ export const toggleModelApi = (model_id: number) => {
   });
 };
 
-export const getSessionApi = (user_id: number) => {
+// 获取会话
+export const getSessionApi = (
+  user_id: number,
+  pageParam: { page: number; page_size: number }
+) => {
   return $http({
     url: `openai/session/${user_id}`,
     method: "get",
+    params: pageParam,
   });
 };
 

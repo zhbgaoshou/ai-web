@@ -7,6 +7,10 @@ export const useChatStore = defineStore("chat", {
     messages: [] as IMessageRequest[],
     models: [] as any[],
     sessions: [] as any[],
+    pageParam: {
+      page: 1,
+      page_size: 10,
+    },
   }),
   actions: {
     addMessage(message: IMessageRequest) {
@@ -22,7 +26,7 @@ export const useChatStore = defineStore("chat", {
       return res;
     },
     async getSession(user_id: number) {
-      const res = await getSessionApi(user_id);
+      const res = await getSessionApi(user_id, this.pageParam);
       this.sessions = res;
     },
   },
