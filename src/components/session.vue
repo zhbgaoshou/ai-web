@@ -62,33 +62,23 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    class="dropdown dropdown-end my-[2px]"
-    v-for="item in chatStore.sessions"
-    :key="item.id"
-  >
+  <div class="dropdown dropdown-end my-[2px]" v-for="item in chatStore.sessions" :key="item.id">
     <li class="group" @click="toggleSession(item.id)">
       <a :class="{ active: item.active }" class="parent">
         <span></span>{{ item.name }}
-        <button :tabindex="0" class="more-drop">
+        <button :tabindex="0" class="more-drop" @click.stop>
           <moreDropIcon class="invisible group-hover:visible" />
         </button>
       </a>
     </li>
-    <ul
-      ref="dropdownRef"
-      :tabindex="0"
-      class="dropdown-content w-max timeline-box bg-base-100 z-[1] p-2"
-    >
+    <ul ref="dropdownRef" :tabindex="0" class="dropdown-content w-max timeline-box bg-base-100 z-[1] p-2">
       <li>
-        <a
-          >编辑
+        <a>编辑
           <editIcon width="18" />
         </a>
       </li>
       <li @click="deleteSession(item.id, $refs.dropdownRef)">
-        <a class="!text-error"
-          >删除
+        <a class="!text-error">删除
           <deleteIcon width="18" />
         </a>
       </li>

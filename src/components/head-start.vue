@@ -1,10 +1,6 @@
 <template>
   <div class="navbar-start">
-    <label
-      for="my-drawer-3"
-      aria-label="open sidebar"
-      class="mr-1 md:hidden btn btn-square btn-sm btn-ghost"
-    >
+    <label for="my-drawer-3" aria-label="open sidebar" class="mr-1 md:hidden btn btn-square btn-sm btn-ghost">
       <moreIcon width="24" />
     </label>
     <div class="dropdown">
@@ -12,13 +8,9 @@
         {{ chatStore.activeModel?.name }}
         <downIcon />
       </div>
-      <ul
-        tabindex="0"
-        class="dropdown-content menu bg-base-100 rounded-box z-[1] w-80 p-2 shadow"
-      >
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-80 p-2 shadow">
         <li @click="toggleModelApi(item)" v-for="item in chatStore.models">
-          <a
-            ><span></span>
+          <a><span></span>
             <div>
               {{ item.name }}
               <p class="text-xs text-base-content opacity-60">

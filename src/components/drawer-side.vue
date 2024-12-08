@@ -1,12 +1,6 @@
 <template>
-  <label
-    for="my-drawer-3"
-    aria-label="close sidebar"
-    class="drawer-overlay"
-  ></label>
-  <ul
-    class="menu min-h-full w-60 p-4 shadow-sm bg-base-100 border-r-[1px] border-base-300"
-  >
+  <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+  <ul class="menu min-h-full w-60 p-4 shadow-sm bg-base-100 border-r-[1px] border-base-300">
     <!-- Sidebar content here -->
     <li v-for="item in menulist">
       <a>
@@ -18,17 +12,15 @@
     <h2 class="menu-title">功能</h2>
 
     <li>
-      <a> <gptIcon width="18" />CHATGPT </a>
+      <a>
+        <gptIcon width="18" />CHATGPT
+      </a>
     </li>
 
     <h2 class="menu-title flex items-center gap-2">
       记录
       <div class="tooltip tooltip-right" data-tip="新建会话">
-        <addSessionIcon
-          width="16"
-          class="cursor-pointer"
-          @click="sessionEl?.addSession()"
-        />
+        <addSessionIcon width="16" class="cursor-pointer" @click="sessionEl?.addSession()" />
       </div>
     </h2>
 
